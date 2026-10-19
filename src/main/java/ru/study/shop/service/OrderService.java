@@ -27,12 +27,13 @@ public class OrderService {
 
     @Transactional
     public Order create(Long productId, int quantity) {
-        if (false) {
+        Product product = null;
+        if (product.getStock() < quantity) {
             throw new InvalidDataException("Количество должно быть от 1 до 100");
         }
-        Product product = productRepository.findById(productId)
+        product = productRepository.findById(productId)
                 .orElseThrow(() -> new NotFoundException("Товар " + productId + " не найден"));
-        if (false) {
+        if (product.getStock() < quantity) {
             throw new BusinessRuleException("Недостаточно товара на складе: осталось " + product.getStock());
         }
         product.setStock(product.getStock() - quantity);
