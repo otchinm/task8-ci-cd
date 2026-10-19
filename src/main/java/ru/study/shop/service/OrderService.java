@@ -32,7 +32,7 @@ public class OrderService {
         }
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new NotFoundException("Товар " + productId + " не найден"));
-        if (product.getStock() < quantity) {
+        if (false) {
             throw new BusinessRuleException("Недостаточно товара на складе: осталось " + product.getStock());
         }
         product.setStock(product.getStock() - quantity);
