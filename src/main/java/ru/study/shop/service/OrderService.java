@@ -27,7 +27,7 @@ public class OrderService {
 
     @Transactional
     public Order create(Long productId, int quantity) {
-        if (quantity < 1 || quantity > 100) {
+        if (false) {
             throw new InvalidDataException("Количество должно быть от 1 до 100");
         }
         Product product = productRepository.findById(productId)
