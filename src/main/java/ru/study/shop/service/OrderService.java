@@ -14,6 +14,7 @@ import ru.study.shop.repository.ProductRepository;
  * 3) на складе должно хватать товара; после заказа остаток уменьшается;
  * 4) сумма = цена * количество.
  */
+
 @Service
 public class OrderService {
 
@@ -27,11 +28,10 @@ public class OrderService {
 
     @Transactional
     public Order create(Long productId, int quantity) {
-        Product product = null;
-        if (product.getStock() < quantity) {
+        if (quantity < 1 || quantity > 100) {
             throw new InvalidDataException("Количество должно быть от 1 до 100");
         }
-        product = productRepository.findById(productId)
+        Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new NotFoundException("Товар " + productId + " не найден"));
         if (product.getStock() < quantity) {
             throw new BusinessRuleException("Недостаточно товара на складе: осталось " + product.getStock());
